@@ -14,10 +14,12 @@ def on_connect(client, userdata, flags, rc):
 
     print("Connected to server (i.e., broker) with result code "+str(rc))
     #replace user with your USC username in all subscriptions
-    client.subscribe("user/ipinfo")
+    client.subscribe("mshun/ipinfo")
+    client.subscribe("mshun/dtinfo")
     
     #Add the custom callbacks by indicating the topic and the name of the callback handle
-    client.message_callback_add("user/ipinfo", on_message_from_ipinfo)
+    client.message_callback_add("mshun/ipinfo", on_message_from_ipinfo)
+    client.message_callback_add("mshun/dtinfo", on_message_from_dtinfo)
 
 
 """This object (functions are objects!) serves as the default callback for 
@@ -31,6 +33,8 @@ def on_message(client, userdata, msg):
 def on_message_from_ipinfo(client, userdata, message):
    print("Custom callback  - IP Message: "+message.payload.decode())
 
+def on_message_from_dtinfo(client, userdata, message):
+   print("Custom callback  - Date and Time Message: "+message.payload.decode())
 
 
 
@@ -53,6 +57,7 @@ if __name__ == '__main__':
     server in the event no messages have been published from or sent to this 
     client. If the connection request is successful, the callback attached to
     `client.on_connect` will be called."""    
+    
     client.connect(host="68.181.32.115", port=11000, keepalive=60)
 
     """In our prior labs, we did not use multiple threads per se. Instead, we
@@ -66,4 +71,9 @@ if __name__ == '__main__':
     which will block forever. This function processes network traffic (socket 
     programming is used under the hood), dispatches callbacks, and handles 
     reconnecting."""
+    
     client.loop_forever()
+    
+    
+    
+    

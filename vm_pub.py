@@ -14,13 +14,17 @@ def on_connect(client, userdata, flags, rc):
 
 if __name__ == '__main__':
     #get IP address
-    ip_address=0 
     """your code here"""
+    hostname = socket.gethostname()
+    ip_address = socket.gethostbyname(hostname)
+    #ip_address= "172.20.10.9"
+    
     #create a client object
     client = mqtt.Client()
     
     #attach the on_connect() callback function defined above to the mqtt client
     client.on_connect = on_connect
+    
     """Connect using the following hostname, port, and keepalive interval (in 
     seconds). We added "host=", "port=", and "keepalive=" for illustrative 
     purposes. You can omit this in python. For example:
@@ -41,11 +45,24 @@ if __name__ == '__main__':
 
     while True:
         #replace user with your USC username in all subscriptions
-        client.publish("user/ipinfo", f"{ip_address}")
-        print("Publishing ip address")
+        client.publish("mshun/ipinfo", f"{ip_address}")
+        print("Publishing ip address: " + str(ip_address))
         time.sleep(4)
 
         #get date and time 
         """your code here"""
+        laDate = datetime.now()
+        
         #publish date and time in their own topics
         """your code here"""
+        client.publish("mshun/dtinfo", f"{laDate}")
+        print("Publishing date and time: " + str(laDate))
+        
+        
+        
+        
+        
+        
+        
+        
+        
