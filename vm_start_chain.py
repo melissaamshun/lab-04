@@ -30,9 +30,6 @@ if __name__ == '__main__':
 
 	num = 0
 	
-	hostname = socket.gethostname()
-	ip_address = socket.gethostbyname(hostname)
-	
 	client = mqtt.Client()
 	
 	

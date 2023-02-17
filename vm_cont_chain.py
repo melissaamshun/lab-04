@@ -24,8 +24,6 @@ def on_message_from_ping(client, userdata, message):
         
 if __name__ == '__main__':
 
-	hostname = socket.gethostname()
-	ip_address = socket.gethostbyname(hostname)
 	
 	client = mqtt.Client()
 	
@@ -36,7 +34,7 @@ if __name__ == '__main__':
 	client.on_message = on_message
 	#attach the on_connect() callback function defined above to the mqtt client
 	client.on_connect = on_connect
-	client.connect(host="6172.20.10.8", port=1883, keepalive=60)
+	client.connect(host="172.20.10.8", port=1883, keepalive=60)
 	client.loop_forever()
         
 
